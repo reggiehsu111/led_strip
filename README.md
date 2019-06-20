@@ -44,7 +44,7 @@ The following files are specific for
     │
     │                                # The following files are specific for emulating on PCs
     │
-    ├── emulate.py                   # For emulating on PC
+    ├── emulate.py                   # For emulating on PC, requires opencv
     │
     ├── utils.py                     # Helper functions including the display_equip class
     ├── led_fan.py                   # Class definition for led fan class
