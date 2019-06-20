@@ -32,8 +32,9 @@ class led_fan:
 		return self.zero_row
 
 	# display pixels given pixel array
-	# issue: bottleneck here at iterating over all pixels. The optimal way is to replace the whole pixels 
-	# 		 array with output_pix, but the implementation of Neopixel doesn't allow this
+	# issue: bottleneck here at iterating over all pixels. The leds on the strip will light up one by one, 
+	# 		 but the optimal way is to replace the whole pixels array with output_pix, so the led strip can 
+	# 		 light up all at once, but the implementation of Neopixel doesn't allow this to happen
 	# Please refer to https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/blob/master/neopixel.py
 	# at __setitem__ method
 	def display_pix(self,output_pix):
