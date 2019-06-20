@@ -17,9 +17,6 @@ class led_fan:
 		self.zero_row = 0
 		self.strip_dist = self.image_height/(self.strips)
 
-		
-		
-
 
 	def resize_width(self):
 		self.resize_image = self.rot_image.resize((self.strip_leds,self.image_height),
@@ -29,20 +26,23 @@ class led_fan:
 	def update_angle(self,angle):
 		self.angle = angle
 
-	# set the zero row of the led strip
+	# set the zeroth row of the led strip
 	def set_zero_row(self):
 		self.zero_row = int(self.angle*self.image_height/360)
 		return self.zero_row
 
 	# display pixels given pixel array
+	# issue: bottleneck here at iterating over all pixels. The optimal way is to replace the whole pixels 
+	# 		 array with output_pix, but the implementation of Neopixel doesn't allow this
+	# Please refer to https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/blob/master/neopixel.py
+	# at __setitem__ method
 	def display_pix(self,output_pix):
-		# for x in range(output_pix.shape[0]):
-		# 	self.pixels[x] = output_pix[x]
-		# 	self.pixels.show()
-		self.pixels = output_pix.tolist()
-		self.pixels.show()
+		for x in range(output_pix.shape[0]):
+			self.pixels[x] = output_pix[x]
+			self.pixels.show()
 
 
+	# main function to display the rotated image to the led strips
 	def display_led(self):
 		# discretize angle
 		self.set_zero_row()
