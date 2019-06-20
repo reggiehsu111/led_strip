@@ -35,8 +35,8 @@ class led_fan:
 		return self.zero_row
 
 	# display pixels given pixel array
-	def display_pix(self):
-		for x in len(output_pix.shape[0]):
+	def display_pix(self,output_pix):
+		for x in range(output_pix.shape[0]):
 			self.pixels[x] = output_pix[x]
 			self.pixels.show()
 

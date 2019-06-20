@@ -36,7 +36,9 @@ if __name__ == '__main__':
 			# pixels.fill((0, 0, 255, 0))
 			led_strips.pixels.show()
 			time.sleep(1)
+			led_strips.resize_width()
 			led_strips.display_led()
+			time.sleep(1)
                         
 
 	except KeyboardInterrupt:
