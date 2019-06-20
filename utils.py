@@ -1,12 +1,18 @@
 from PIL import Image
 import numpy as np
-import neopixel
-import board
 from config import *
 
+if mode == 'led': 
+	import neopixel
+	import board
+
+# Class for display_equip to inherit from
+class NoneClass():
+	pass
 # wrapper class for output equipments
-class display_equip(neopixel.NeoPixel if mode == 'led' else None):
-	def __init__(self, mode=mode, num_pixels=num_pixels, ORDER = ORDER, pixel_pin = board.D18, strips=5, strip_leds=12):
+class display_equip(neopixel.NeoPixel if mode == 'led' else NoneClass):
+	# mode, num_pixels, ORDER, pixel_pin are imported from config.py
+	def __init__(self, mode=mode, num_pixels=num_pixels, ORDER = ORDER, pixel_pin = pixel_pin, strips=5, strip_leds=12):
 		# num_pixels:	The number of NeoPixels
 		# pixel_pin :	Choose an open pin connected to the Data In of the NeoPixel strip, i.e. board.D18
 		# 				NeoPixels must be connected to D10, D12, D18 or D21 to work.
@@ -18,16 +24,19 @@ class display_equip(neopixel.NeoPixel if mode == 'led' else None):
 		self.mode = mode
 		if self.mode == 'led':
 			super().__init__(pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER)
-			self.num_pixels = num_pixels
-			self.ORDER = ORDER
-			self.strips = strips
-			self.strip_leds = strip_leds
+		self.num_pixels = num_pixels
+		self.ORDER = ORDER
+		self.strips = strips
+		self.strip_leds = strip_leds
+
 
 
 def load_image( infilename ) :
     img = Image.open( infilename )
     img.load()
     return img
+
+
 
 def wheel(pos):
 	# Input a value 0 to 255 to get a color value.

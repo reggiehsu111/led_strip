@@ -2,13 +2,20 @@ import cv2
 import numpy as np
 import time
 from led_fan import led_fan
+from utils import *
 
 
-# def display_rot_img(image):
-# 	while(1):
+def transform_img(img):
+	w,h = img.shape[0],img.shape[1]
+	new_half = int(max(w,h)/2)
+	temp_img = np.zeros((2*new_half,2*new_half,3))
+	temp_img[new_half-int(w/2):new_half+int(w/2),new_half-int(h/2):new_half+int(h/2),:] = img
+	return temp_img
+
 class fan(led_fan):
-	def __init__(self,w,t,width=5,rot_image=None, angle=0, strips=5):
-		super().__init__(rot_image,angle,strips)
+	def __init__(self,w,t,width=5,rot_image=None, angle=0, disp_equip=None, strips=5):
+		super().__init__(rot_image,angle,disp_equip=disp_equip,strips=strips)
+		self.rot_image = np.array(rot_image)
 		self.t = t
 		self.w = w
 		self.rotate(w,t,width)
@@ -42,30 +49,27 @@ class fan(led_fan):
 		# index to display
 
 
-source = cv2.imread('./snoopy.jpeg')
-img = source.astype(np.float32)
-def transform_img(img):
-	w,h = img.shape[0],img.shape[1]
-	new_half = int(max(w,h)/2)
-	temp_img = np.zeros((2*new_half,2*new_half,3))
-	temp_img[new_half-int(w/2):new_half+int(w/2),new_half-int(h/2):new_half+int(h/2),:] = img
-	return temp_img
-img = transform_img(img)
+if __name__ == '__main__':
 
-# value 
-value = np.sqrt(((img.shape[0]/2.0)**2.0)+((img.shape[1]/2.0)**2.0))
-# value1 = img.shape[0]/2
-polar_image = cv2.linearPolar(img,(img.shape[0]/2, img.shape[1]/2), value, cv2.WARP_FILL_OUTLIERS)
-# print("polar shape: ", polar_image.shape)
-cv2.imwrite("transform_img.jpg",polar_image)
-cartisian_image = cv2.linearPolar(polar_image, (img.shape[1]/2, img.shape[0]/2),value, cv2.WARP_INVERSE_MAP)
+	# load original image
+	source = cv2.imread('./snoopy.jpeg')
+	img = source.astype(np.float32)
+	img = transform_img(img)
 
-polar_image = polar_image.astype(np.uint8)
-cartisian_image = cartisian_image.astype(np.uint8)
-# print("shape of polar image: ",polar_image.shape)
-# cv2.imshow("Polar Image", polar_image)
-# cv2.imshow("Cartisian Image", cartisian_image)
-Fan = fan(1000000,0.0001,width=40,rot_image = polar_image)
 
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+	value = np.sqrt(((img.shape[0]/2.0)**2.0)+((img.shape[1]/2.0)**2.0))
+
+	polar_image = cv2.linearPolar(img,(img.shape[0]/2, img.shape[1]/2), value, cv2.WARP_FILL_OUTLIERS)
+
+	cv2.imwrite("transform_img.jpg",polar_image)
+	cartisian_image = cv2.linearPolar(polar_image, (img.shape[1]/2, img.shape[0]/2),value, cv2.WARP_INVERSE_MAP)
+
+	polar_image = polar_image.astype(np.uint8)
+	cartisian_image = cartisian_image.astype(np.uint8)
+
+	pixels = display_equip(mode = 'dev')
+	polar_image = Image.fromarray(polar_image)
+	Fan = fan(1000000,0.0001,width=40,rot_image = polar_image,disp_equip=pixels)
+
+	cv2.waitKey(0)
+	cv2.destroyAllWindows()

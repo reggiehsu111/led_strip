@@ -7,7 +7,7 @@ class led_fan:
 	def __init__(self,rot_image=None,angle=0,disp_equip=None,strips=5,strip_leds=12):
 	
 		# display_equip specific params
-		self.pixels =disp_equip
+		self.pixels = disp_equip
 		self.strips = self.pixels.strips
 		self.strip_leds = self.pixels.strip_leds
 		self.rot_image = rot_image
