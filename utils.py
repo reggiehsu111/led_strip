@@ -1,11 +1,12 @@
 from PIL import Image
 import numpy as np
-from neopixel import *
+import neopixel
 import board
+from config import *
 
 # wrapper class for output equipments
 class display_equip(neopixel.NeoPixel if mode == 'led' else None):
-	def __init__(self, mode='led', num_pixels=60, ORDER = neopixel.GRB, pixel_pin = board.D18, strips=5, strip_leds=12):
+	def __init__(self, mode=mode, num_pixels=num_pixels, ORDER = ORDER, pixel_pin = board.D18, strips=5, strip_leds=12):
 		# num_pixels:	The number of NeoPixels
 		# pixel_pin :	Choose an open pin connected to the Data In of the NeoPixel strip, i.e. board.D18
 		# 				NeoPixels must be connected to D10, D12, D18 or D21 to work.
@@ -50,10 +51,3 @@ def wheel(pos):
 	return (r, g, b) if ORDER == neopixel.RGB or ORDER == neopixel.GRB else (r, g, b, 0)
 
 
-def rainbow_cycle(wait):
-	for j in range(255):
-		for i in range(num_pixels):
-			pixel_index = (i * 256 // num_pixels) + j
-			pixels[i] = wheel(pixel_index & 255)
-		pixels.show()
-		time.sleep(wait)

@@ -4,9 +4,9 @@ import time
 from PIL import Image
 from led_fan import led_fan
 from utils import *
+from config import *
 
-input_image_path = 'transform_img.jpg'
-mode='led'
+input_image_path = 'transform_img.jpg' 
 
 pixels = display_equip(mode = mode)
 
@@ -36,8 +36,9 @@ if __name__ == '__main__':
 			# pixels.fill((0, 0, 255, 0))
 			led_strips.pixels.show()
 			time.sleep(1)
+			led_strips.display_led()
+                        
 
-			rainbow_cycle(0.001)    # rainbow cycle with 1ms delay per step
 	except KeyboardInterrupt:
 		led_strips.pixels.fill((0,0,0))
 		led_strips.pixels.show()

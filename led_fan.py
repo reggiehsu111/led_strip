@@ -5,6 +5,11 @@ from utils import *
 
 class led_fan:
 	def __init__(self,rot_image=None,angle=0,disp_equip=None,strips=5,strip_leds=12):
+	
+		# display_equip specific params
+		self.pixels =disp_equip
+		self.strips = self.pixels.strips
+		self.strip_leds = self.pixels.strip_leds
 		self.rot_image = rot_image
 		self.image_height = self.rot_image.size[0]
 		self.image_width = self.rot_image.size[1]
@@ -12,10 +17,6 @@ class led_fan:
 		self.zero_row = 0
 		self.strip_dist = self.image_height/(self.strips)
 
-		# display_equip specific params
-		self.pixels =disp_equip
-		self.strips = self.pixels.strips
-		self.strip_leds = self.pixels.strip_leds
 		
 		
 
@@ -33,6 +34,13 @@ class led_fan:
 		self.zero_row = int(self.angle*self.image_height/360)
 		return self.zero_row
 
+        # display pixels given pixel array
+        def display_pix(self):
+            for x in len(output_pix.shape[0]):
+                self.pixels[x] = output_pix[x]
+            self.pixels.show()
+
+
 	def display_led(self):
 		# discretize angle
 		self.set_zero_row()
@@ -45,7 +53,7 @@ class led_fan:
 		# select the rows to be displayed and reshape it to (60,3) 2d array
 		selected_rows = np.array(self.resize_image)[strip_index]
 		output_pix = selected_rows.reshape((selected_rows.shape[0]*selected_rows.shape[1],3))
-		display_pix()
+		self.display_pix(output_pix)
 
 
 if __name__ == '__main__':
