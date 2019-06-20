@@ -1,31 +1,17 @@
 import cv2
 import numpy as np
 import time
+from led_fan import led_fan
 
 
 # def display_rot_img(image):
 # 	while(1):
-class fan:
+class fan(led_fan):
 	def __init__(self,w,t,width=5,rot_image=None, angle=0, strips=5):
-		self.rot_image = rot_image
-		self.image_height = self.rot_image.shape[0]
-		self.radius = self.rot_image.shape[1]
-		self.angle = angle
-		self.strips = strips
-		self.zero_row = 0
-		self.strip_dist = self.rot_image.shape[0]/(self.strips)
+		super().__init__(rot_image,angle,strips)
 		self.t = t
 		self.w = w
 		self.rotate(w,t,width)
-
-	# update angle
-	def update_angle(self,angle):
-		self.angle = angle
-
-	# set the zero row of the led strip
-	def set_zero_row(self):
-		self.zero_row = int(self.angle*self.image_height/360)
-		return self.zero_row
 
 	# method for self rotation give angular velocity w
 	def rotate(self,w,t,width):
