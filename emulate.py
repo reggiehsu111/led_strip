@@ -12,7 +12,7 @@ def transform_img(img):
 	temp_img[new_half-int(w/2):new_half+int(w/2),new_half-int(h/2):new_half+int(h/2),:] = img
 	return temp_img
 
-class fan(led_fan):
+class emulate_fan(led_fan):
 	def __init__(self,w,t,width=5,rot_image=None, angle=0, disp_equip=None, strips=5):
 		super().__init__(rot_image,angle,disp_equip=disp_equip,strips=strips)
 		self.rot_image = np.array(rot_image)
@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
 	pixels = display_equip(mode = 'dev')
 	polar_image = Image.fromarray(polar_image)
-	Fan = fan(1000000,0.0001,width=40,rot_image = polar_image,disp_equip=pixels)
+	Fan = emulate_fan(1000000,0.0001,width=40,rot_image = polar_image,disp_equip=pixels)
 
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
