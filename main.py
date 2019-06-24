@@ -1,7 +1,6 @@
 # file to display rotated image on led strips
 import argparse
 import time
-import display
 from PIL import Image
 from utils import *
 
