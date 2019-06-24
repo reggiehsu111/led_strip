@@ -1,7 +1,6 @@
 # file to display rotated image on led strips
 import argparse
 import time
-import display
 from PIL import Image
 from utils import *
 
@@ -25,12 +24,14 @@ if __name__ == '__main__':
 	# initialize equipment for dev mode
 	if args.mode == 'dev':
 		from classes.emulate import *
+		# initialize equipment for emulation
 		pixels = emulate_equip(strips=args.strips,strip_leds=args.strip_leds)
-		led_strips = emulate_fan(1000000,0.0001,width=40,rot_image = image,disp_equip=pixels)
+		led_strips = emulate_fan(1000000, 0.0001, width=40, rot_image = image, disp_equip=pixels)
 
 	# initialize equipment for led mode
-	if args.mode == 'led':
+	elif args.mode == 'led':
 		from classes.led import *
+		# initialize equipment for led strips
 		pixels = led_equip(strips=args.strips,strip_leds=args.strip_leds)
 		led_strips = led_fan(rot_image=image, disp_equip=pixels)
 
@@ -39,6 +40,6 @@ if __name__ == '__main__':
 		print("Press Ctrl-C to leave.")
 		while True:
 			led_strips.Run()
-
+	# End when pressing Ctrl-c
 	except KeyboardInterrupt:
 		led_strips.End()

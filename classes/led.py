@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-from parents import *
+from Parents import *
 import time
 import board
 import neopixel
@@ -61,7 +61,8 @@ class led_fan(Parent_fan):
 		self.pixels.show()
 		time.sleep(1)
 		self.display_led()
-
+		
+	# Closing the Run
 	def End(self):
 		self.pixels.fill((0,0,0))
 		self.pixels.show()
