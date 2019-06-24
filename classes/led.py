@@ -1,6 +1,5 @@
 import numpy as np
 from PIL import Image
-from parents import *
 import time
 import board
 import neopixel
@@ -12,6 +11,7 @@ class led_fan(Parent_fan):
 
 	def __init__(self,rot_image=None,angle=0,disp_equip=None,strips=5,strip_leds=12):
 		super().__init__(rot_image=rot_image,angle=angle,disp_equip=disp_equip,strips=strips,strip_leds=strip_leds)
+		self.resize_image = self.rot_image.resize((self.strip_leds,self.image_height), resample=Image.LANCZOS)
 
 	# main function to display the rotated image to the led strips
 	def display_led(self):
@@ -74,6 +74,6 @@ class led_equip(Parent_equip,neopixel.NeoPixel):
 		# ORDER     :	The order of the pixel colors - RGB or GRB. Some NeoPixels have red and green 
 		#				reversed! 
 		# 				For RGBW NeoPixels, simply change the ORDER to RGBW or GRBW.
-	
-		display_equip.__init__(strips=strips, strip_leds=strip_leds)
-		neopixel.NeoPixel.__init__(pixel_pin, self.num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER)
+		num_pixels = strips*strip_leds
+		Parent_equip.__init__(self, strips=strips, strip_leds=strip_leds)
+		neopixel.NeoPixel.__init__(self, pixel_pin, num_pixels, brightness=0.2, auto_write=False, pixel_order=ORDER)
