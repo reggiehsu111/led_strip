@@ -37,7 +37,7 @@ class led_fan(Parent_fan):
 	def display_pix(self,output_pix):
 		for x in range(output_pix.shape[0]):
 			self.pixels[x] = output_pix[x]
-			self.pixels.show()
+		self.pixels.show()
 
 
 # led mode, inherit from Parent_equip and neopixel
