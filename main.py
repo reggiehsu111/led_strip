@@ -32,6 +32,7 @@ if __name__ == '__main__':
 	# initialize equipment for led mode
 	elif args.mode == 'led':
 		from classes.led import *
+		from run_led import *
 		# initialize equipment for led strips
 		pixels = led_equip(strips=args.strips,strip_leds=args.strip_leds)
 		led_strips = led_fan(rot_image=image, disp_equip=pixels)
