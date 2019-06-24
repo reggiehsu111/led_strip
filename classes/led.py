@@ -15,7 +15,10 @@ class led_fan(Parent_fan):
 		self.resize_image = np.array(self.resize_image)
 
 	# main function to display the rotated image to the led strips
-	def display_led(self):
+	def display_led(self,w,t):
+		self.w = w
+		self.t = t
+		self.update_angle((self.angle+self.w*self.t)%360)
 		# discretize angle
 		self.set_zero_row()
 		# index on rot_image where the strip should display
@@ -25,16 +28,11 @@ class led_fan(Parent_fan):
 		# print("strip_index: ",strip_index)
 
 		# select the rows to be displayed and reshape it to (60,3) 2d array
-		selected_rows = np.array(self.resize_image)[strip_index]
+		selected_rows = self.resize_image[strip_index]
 		output_pix = selected_rows.reshape((selected_rows.shape[0]*selected_rows.shape[1],3))
 		self.display_pix(output_pix)
 
 	# display pixels given pixel array
-	# issue: Bottleneck here at iterating over all pixels. The leds on the strip will light up one by one, 
-	# 		 but the optimal way is to replace the whole pixels array with output_pix, so the led strip can 
-	# 		 light up all at once, but the implementation of Neopixel doesn't allow this to happen.
-	# Please refer to https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/blob/master/neopixel.py
-	# at __setitem__ method
 	def display_pix(self,output_pix):
 		for x in range(output_pix.shape[0]):
 			self.pixels[x] = output_pix[x]
