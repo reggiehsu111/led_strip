@@ -12,6 +12,7 @@ class led_fan(Parent_fan):
 	def __init__(self,rot_image=None,angle=0,disp_equip=None,strips=5,strip_leds=12):
 		super().__init__(rot_image=rot_image,angle=angle,disp_equip=disp_equip,strips=strips,strip_leds=strip_leds)
 		self.resize_image = self.rot_image.resize((self.strip_leds,self.image_height), resample=Image.LANCZOS)
+		self.resize_image = np.array(self.resize_image)
 
 	# main function to display the rotated image to the led strips
 	def display_led(self):
@@ -37,7 +38,7 @@ class led_fan(Parent_fan):
 	def display_pix(self,output_pix):
 		for x in range(output_pix.shape[0]):
 			self.pixels[x] = output_pix[x]
-			self.pixels.show()
+		self.pixels.show()
 
 
 # led mode, inherit from Parent_equip and neopixel
