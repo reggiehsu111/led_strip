@@ -15,22 +15,6 @@ class emulate_fan(Parent_fan):
 		self.end_flag = True
 		self.radius = np.sqrt(((self.rot_image.shape[0]/2.0)**2.0)+((self.rot_image.shape[1]/2.0)**2.0))
 
-	# method for self rotation given angular velocity w
-	def Run(self):
-		while(self.end_flag):
-			w = self.w
-			t = self.t
-			width = self.width
-			time.sleep(t)
-			self.update_angle((self.angle+w*t)%360)
-			self.display(width)
-			cv2.waitKey(1)
-		cv2.waitKey(0)
-		cv2.destroyAllWindows()
-
-	def End(self):
-		self.end_flag = False
-
 	def display(self,width):
 		# discretize angle
 		self.set_zero_row()

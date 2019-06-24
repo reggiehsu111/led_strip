@@ -36,38 +36,43 @@ The emulation.py and transform_img.py files are intended to run on PCs, it is no
 The following files are specific for 
 ```
 .
-    │                                # The following files are specific for rpi usage
     │
-    ├── config.py                    # File to store global configurations
-    ├── display.py                   # Main program to display the led patterns onto the leds strips
-    ├── simpletest.py                # Simple testing program for led strip 
+    ├── main.py			     # Main program to display patterns, ```dev``` mode for emulation and ```led``` mode for runtime
+    ├── simpletest.py                # Simple testing program for led strip
+    ├── run_emulate.py               # Run time script for dev mode
+    ├── run_led.py                   # Run time script for led mode
     │
-    │                                # The following files are specific for emulating on PCs
+    ├── /classes                     # Classes defined
+    │	 ├── __init__.py	     
+    │	 ├── Parents.py		     # Base classes ```Parent_fan``` and ```Parent_equip``` defined for inheritance
+    │	 ├── emulate.py		     # Class inherited from base class for emulation mode
+    │	 └── led.py		     # Class inherited from base class for runtime led mode
     │
-    ├── emulate.py                   # For emulating on PC, requires opencv
-    │
-    ├── utils.py                     # Helper functions including the display_equip class
-    ├── led_fan.py                   # Class definition for led fan class
+    ├── utils.py                     # Helper functions
     └── transform_img.jpg            # Transformed image to be loaded
 ```
 
 ### Class Discriptions
-  - The ```led_fan``` class takes a ```display_equip``` type object as an input
-  - The ```emulate_fan``` class inherits from the ```led_fan``` class, with ```display_equip``` inheriting from an empty class
+  - The ```led_fan``` class takes a ```led_equip``` type object as an input
+  - The ```emulate_fan``` class takes an ```emulate_equip``` type object as an input
   
 ### Running the code
-  - To run in emulation, set the ```global mode``` in ```config.py``` to ```mode = 'dev'```, then simply run
+  - To run in emulation (develop mode), simply run in sudo mode
   ```
-  python3 emulate.py
+  sudo python3 main.py -m dev
   ```
-  Press ```q``` to exit the emulation program
   
-  - To run in Rpi mode, set the ```global mode``` in ```config.py``` to ```mode = 'led'```, then simply run
+  - To run in Rpi runtime mode, simply run in sudo mode
   ```
-  python3 display.py
+  sudo python3 main.py -m led
   ```
   Press ```Ctrl-C``` to exit the emulation program
   
+  
+  - To configure the number of strips and the number of leds per strip, add the options ```-s``` and ```-sl```
+  ```
+  sudo python3 main.py -m dev -s 5 -sl 12
+  ```
 ## Current issue
   - Current issue in ```led_fan.py```:
     In method display_pix(self,output_pix):

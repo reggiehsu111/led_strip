@@ -24,6 +24,7 @@ if __name__ == '__main__':
 	# initialize equipment for dev mode
 	if args.mode == 'dev':
 		from classes.emulate import *
+		from run_emulate import *
 		# initialize equipment for emulation
 		pixels = emulate_equip(strips=args.strips,strip_leds=args.strip_leds)
 		led_strips = emulate_fan(1000000, 0.0001, width=40, rot_image = image, disp_equip=pixels)
@@ -39,7 +40,7 @@ if __name__ == '__main__':
 	try:
 		print("Press Ctrl-C to leave.")
 		while True:
-			led_strips.Run()
+			Run(led_strips)
 	# End when pressing Ctrl-c
 	except KeyboardInterrupt:
-		led_strips.End()
+		End(led_strips)
