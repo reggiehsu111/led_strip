@@ -5,7 +5,7 @@ from PIL import Image
 from utils import *
 
 
-input_image_path = 'transform_img.jpg' 
+input_image_path = 'Transform_A.jpg' 
 image = load_image(input_image_path)
 
 
@@ -40,6 +40,7 @@ if __name__ == '__main__':
 
 	# Run Pattern
 	try:
+		print("Press Ctrl-c to quit")
 		Run(led_strips)
 	# End when pressing Ctrl-c
 	except KeyboardInterrupt:

@@ -1,8 +1,6 @@
 import time
 from classes.key_detection import key_detector
 
-
-
 # Running Pattern
 def Run(led_strip):
 	# led_strip.pixels.fill((255, 0, 0))

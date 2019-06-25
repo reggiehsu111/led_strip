@@ -17,4 +17,3 @@ def load_image(infilename) :
 	img.load()
 	return img
 
-
