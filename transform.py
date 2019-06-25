@@ -7,7 +7,7 @@ def square_img(img):
 	w,h = img.shape[0],img.shape[1]
 	new_half = int(max(w,h)/2)
 	temp_img = np.zeros((2*new_half,2*new_half,3))
-	temp_img[new_half-int(w/2):new_half+int(w/2),new_half-int(h/2):new_half+int(h/2),:] = img
+	temp_img[new_half-int(w/2):new_half+int(w/2),new_half-int(h/2):new_half+int(h/2),:] = img[:2*int(w/2),:2*int(h/2)]
 	return temp_img
 
 def cart2polar(image_path, output_path):
@@ -28,7 +28,7 @@ def cart2polar(image_path, output_path):
 
 if __name__ == '__main__':
 	from run_emulate import *
-	original_img, polar_image = cart2polar('A.jpg', 'Transform_A.jpg')
+	original_img, polar_image = cart2polar('1.jpg', 'transform_1.jpg')
 	print("type of polar_image: ", type(polar_image))
 	radius = np.sqrt(((original_img.shape[0]/2.0)**2.0)+((original_img.shape[1]/2.0)**2.0))
 

@@ -12,8 +12,8 @@ def Run(led_strip):
 	# led_strip.pixels.fill((0, 0, 255))
 	# led_strip.pixels.show()
 	# time.sleep(1)
-	w = 100
-	t = 0.01
+	w = 10
+	t = 0.005
 	k_d = key_detector(w,t)
 	k_d.start()
 
