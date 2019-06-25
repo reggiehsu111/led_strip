@@ -2,8 +2,9 @@ import time
 from classes.key_detection import key_detector
 
 
+
 # Running Pattern
-def Run(led_strip,w,t):
+def Run(led_strip):
 	# led_strip.pixels.fill((255, 0, 0))
 	# led_strip.pixels.show()
 	# time.sleep(1)
@@ -15,7 +16,7 @@ def Run(led_strip,w,t):
 	# time.sleep(1)
 	w = 100
 	t = 0.01
-	k_d = key_detector()
+	k_d = key_detector(w,t)
 	k_d.start()
 
 	while True:
