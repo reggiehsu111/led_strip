@@ -3,20 +3,11 @@ import argparse
 import time
 from PIL import Image
 from utils import *
-from pynput.keyboard import Key, Listener
+
 
 input_image_path = 'transform_img.jpg' 
 image = load_image(input_image_path)
 
-
-# initialize w,t for runtime
-w = 100
-t = 0.01
-
-def on_press(key,w):
-	if key == Key.up:
-		w += 5
-		return
 
 
 
@@ -49,12 +40,7 @@ if __name__ == '__main__':
 
 	# Run Pattern
 	try:
-		key_lst= Listener(on_press=on_press(w))
-		key_lst.start()
-		print("Press Ctrl-C to leave.")
-		while True:
-			Run(led_strips,w,t)
+		Run(led_strips)
 	# End when pressing Ctrl-c
 	except KeyboardInterrupt:
 		End(led_strips)
-		key_lst.stop()
