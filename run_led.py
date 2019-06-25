@@ -18,8 +18,7 @@ def Run(led_strip):
 	k_d.start()
 
 	while True:
-	
-		led_strip.display_led(w,t)
+		led_strip.display_led(k_d.w,k_d.t)
 		time.sleep(t)
 
 def End(led_strip):
