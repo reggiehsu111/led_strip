@@ -9,10 +9,10 @@ class  key_detector():
 
 	def on_press(self,key):
 		if key == Key.up:
-			self.w += 5
+			self.w += 1
 			print("\nself.w: ", self.w)
 		elif key == Key.down:
-			self.w -= 5
+			self.w -= 1
 			print("\nself.w: ", self.w)
 
 	def start(self):
