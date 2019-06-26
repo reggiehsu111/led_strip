@@ -63,6 +63,7 @@ The following files are specific for
     │  └── led.py                    # Class inherited from base class for runtime led mode
     │
     ├── /images                      # Folder containing images
+    │
     ├── README.md
     └── .gitignore
 ```
