@@ -39,22 +39,28 @@ The following files are specific for
     │
     ├── main.py			     # Main program to display patterns, ```dev``` mode for emulation and ```led``` mode for runtime
     ├── simpletest.py                # Simple testing program for led strip
-    ├── run_emulate.py               # Run time script for dev mode
-    ├── run_led.py                   # Run time script for led mode
+    ├── run_emulate.py               # Containing class emulate_RUnner, run time script for dev mode
+    ├── run_led.py                   # Containing class led_RUnner, run time script for led mode
     │
     ├── /classes                     # Classes defined
     │	 ├── __init__.py	     
-    │	 ├── Parents.py		     # Base classes ```Parent_fan``` and ```Parent_equip``` defined for inheritance
-    │	 ├── emulate.py		     # Class inherited from base class for emulation mode
-    │	 └── led.py		     # Class inherited from base class for runtime led mode
+    │  ├── key_detection.py          # Class key_detector for detecting key strokes
+    │  ├── infrared_listener.py      # Class infrared_listener for detecting fan pass using infrared sensor
+    │	 ├── Parents.py		             # Base classes ```Parent_fan``` and ```Parent_equip``` defined for inheritance
+    │	 ├── emulate.py		             # Class inherited from base class for emulation mode
+    │	 └── led.py		                 # Class inherited from base class for runtime led mode
     │
+    ├── /images                      # Folder containing images
     ├── utils.py                     # Helper functions
-    └── transform_img.jpg            # Transformed image to be loaded
+    └── transform.py                 # Transform images and run emulation
 ```
 
 ### Class Discriptions
+  - The ```Parent_fan``` and ```Parent_equip``` classes are the base classes for led and emulation mode
   - The ```led_fan``` class takes a ```led_equip``` type object as an input
   - The ```emulate_fan``` class takes an ```emulate_equip``` type object as an input
+  - The ```key_detector``` class is a thread detects key strokes while running in led mode
+  - The ```infrared_listener``` class spawns 2 processes to listen for a led fan passing through
   
 ### Running the code
   - To run in emulation (develop mode), simply run in sudo mode
@@ -73,13 +79,18 @@ The following files are specific for
   ```
   sudo python3 main.py -m dev -s 5 -sl 12
   ```
-## Current issue
-  - Current issue in ```led_fan.py```:
-    In method display_pix(self,output_pix):
+
+  - To specify the image to output, add the options ```-i```
   ```
-    # issue: Bottleneck here at iterating over all pixels. The leds on the strip will light up one by one, 
-	#   	  but the optimal way is to replace the whole pixels array with output_pix, so the led strip can 
-	# 	  light up all at once, but the implementation of Neopixel doesn't allow this to happen.
-	# Please refer to https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel/blob/master/neopixel.py
-	# at __setitem__ method
+  sudo python3 main.py -m led -i image.jpg
+  ``` 
+
+  - To specify the angular velocity, the refresh time, and the offset for angular velocity, add the options ```-w```, ```-t```, and ```-wo``` respectively
   ```
+  sudo python3 main.py -m led -w 1000 -t 0.05 -wo 10
+  ```
+
+
+
+
+
