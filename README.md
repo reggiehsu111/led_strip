@@ -48,10 +48,11 @@ The following files are specific for
 ```
 .
     │
-    ├── main.py			     # Main program to display patterns, ```dev``` mode for emulation and ```led``` mode for runtime
-    ├── simpletest.py                # Simple testing program for led strip
+    ├── main.py                      # Main program to display patterns, ```dev``` mode for emulation and ```led``` mode for runtime
     ├── run_emulate.py               # Containing class emulate_RUnner, run time script for dev mode
     ├── run_led.py                   # Containing class led_RUnner, run time script for led mode
+    ├── transform.py                 # Transform images and run emulation
+    ├── utils.py                     # Helper functions
     │
     ├── /classes                     # Classes defined
     │  ├── __init__.py         
@@ -62,8 +63,8 @@ The following files are specific for
     │  └── led.py                    # Class inherited from base class for runtime led mode
     │
     ├── /images                      # Folder containing images
-    ├── utils.py                     # Helper functions
-    └── transform.py                 # Transform images and run emulation
+    ├── README.md
+    └── .gitignore
 ```
 
 ### Class Discriptions
