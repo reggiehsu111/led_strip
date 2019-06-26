@@ -50,9 +50,9 @@ if __name__ == '__main__':
 	pixels = emulate_equip()
 	polar_image = Image.fromarray(polar_image)
 	Fan = emulate_fan(1000000,0.0001,width=40,rot_image = polar_image,disp_equip=pixels)
-
+	Runner = emulate_Runner()
 	try:
-		Run(Fan)
+		Runner.Run(Fan)
 
 	except KeyboardInterrupt:
-		End(Fan)
+		Runner.End(Fan)
