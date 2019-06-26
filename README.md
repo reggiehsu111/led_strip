@@ -43,12 +43,12 @@ The following files are specific for
     ├── run_led.py                   # Containing class led_RUnner, run time script for led mode
     │
     ├── /classes                     # Classes defined
-    │	 ├── __init__.py	     
+    │  ├── __init__.py         
     │  ├── key_detection.py          # Class key_detector for detecting key strokes
     │  ├── infrared_listener.py      # Class infrared_listener for detecting fan pass using infrared sensor
-    │	 ├── Parents.py		             # Base classes ```Parent_fan``` and ```Parent_equip``` defined for inheritance
-    │	 ├── emulate.py		             # Class inherited from base class for emulation mode
-    │	 └── led.py		                 # Class inherited from base class for runtime led mode
+    │  ├── Parents.py                # Base classes ```Parent_fan``` and ```Parent_equip``` defined for inheritance
+    │  ├── emulate.py                # Class inherited from base class for emulation mode
+    │  └── led.py                    # Class inherited from base class for runtime led mode
     │
     ├── /images                      # Folder containing images
     ├── utils.py                     # Helper functions
