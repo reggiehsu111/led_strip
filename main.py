@@ -20,6 +20,9 @@ if __name__ == '__main__':
 	args.add_argument('-sl','--strip_leds', default=12, type=int, help='Number of leds on a strip')
 	
 	args.add_argument('-i','--image', default=input_image_path, type=str, help='transformed image to display')
+	args.add_argument('-w','--angular_v', default=1000, type=int, help='initialize angular velocity')
+	args.add_argument('-t','--refresh_time', default=0.05, type=float, help='initialize refresh time')
+	args.add_argument('-wo','--w_offset', default=0, type=int, help='initialize offset for w')
 	args = args.parse_args()
 
 	
@@ -41,7 +44,7 @@ if __name__ == '__main__':
 		# initialize equipment for led strips
 		pixels = led_equip(strips=args.strips,strip_leds=args.strip_leds)
 		led_strips = led_fan(rot_image=image, disp_equip=pixels)
-		Runner = led_Runner(w = 1000,t =0.03)
+		Runner = led_Runner(w = args.angular_v, t = args.refresh_time, w_offset = args.w_offset)
 
 	# Run Pattern
 	try:

@@ -5,11 +5,12 @@ from classes.infrared_listener import infrared_listener
 
 class led_Runner():
 	
-	def __init__(self,w,t):
+	def __init__(self,w,t,w_offset):
 		self.w = w
 		self.t = t
+		self.w_offset = w_offset
 		self.l_d = infrared_listener(self.w, self.t)
-		self.k_d = key_detector(self.w, self.t)
+		self.k_d = key_detector(self.w_offset, self.t)
 
 	# Running Pattern
 	def Run(self,led_strip):
@@ -22,7 +23,6 @@ class led_Runner():
 		# led_strip.pixels.fill((0, 0, 255))
 		# led_strip.pixels.show()
 		# time.sleep(1)
-		
 		self.l_d .start()
 		self.k_d.start()
 
@@ -30,7 +30,8 @@ class led_Runner():
 			start = time.time()	
 		#	led_strip.pixels.fill((255,255,255))
 		#	led_strip.pixels.show()
-			led_strip.display_led(self.l_d.w,self.k_d.t)
+			led_strip.display_led(self.l_d.w + self.k_d.w_offset ,self.k_d.t)
+			time.sleep(self.k_d.interval)
 
 			if self.k_d.calibrate:
 				led_strip.pixels.fill((0,0,0))

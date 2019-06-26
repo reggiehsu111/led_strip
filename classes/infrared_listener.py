@@ -46,7 +46,7 @@ class infrared_listener():
 							print( "w: ", 360 / ( end - start ) )
 							self.w = 360 / (end-start)
 							start = end
-						time.sleep(0.05)
+						time.sleep(0.02)
 					else:
 						pass
 		except KeyboardInterrupt:
