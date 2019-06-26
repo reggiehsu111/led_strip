@@ -36,7 +36,7 @@ if __name__ == '__main__':
 	args.add_argument('-o','--output', default='transform_1.jpg', type=str, help='Transformed image path to output')
 	args = args.parse_args()
 
-	original_img, polar_image = cart2polar('images/'+args.input, 'images/'+args.output)
+	original_img, polar_image = cart2polar(args.input, args.output)
 	print("type of polar_image: ", type(polar_image))
 	radius = np.sqrt(((original_img.shape[0]/2.0)**2.0)+((original_img.shape[1]/2.0)**2.0))
 
