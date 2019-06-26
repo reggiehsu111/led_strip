@@ -5,6 +5,7 @@ class  key_detector():
 	def __init__(self,w,t):
 		self.w = w
 		self.t = t
+		# delta for changing w and t
 		self.w_delta = 0.2
 		self.t_delta = 0.001
 		self.key_listener= Listener(on_press=self.on_press)
