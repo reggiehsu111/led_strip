@@ -37,3 +37,4 @@ class  key_detector():
 
 	def stop(self):
 		self.key_listener.stop()
+		print("key_listener stopped")

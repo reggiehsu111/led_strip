@@ -23,27 +23,30 @@ if __name__ == '__main__':
 	args = args.parse_args()
 
 	
-	image = load_image(args.image)
+	image = load_image('images/'+args.image)
 	# initialize equipment for dev mode
 	if args.mode == 'dev':
 		from classes.emulate import *
-		from run_emulate import *
+		from run_emulate import emulate_Runner
 		# initialize equipment for emulation
 		pixels = emulate_equip(strips=args.strips,strip_leds=args.strip_leds)
 		led_strips = emulate_fan(1000000, 0.0001, width=40, rot_image = image, disp_equip=pixels)
+		Runner = emulate_Runner()
 
 	# initialize equipment for led mode
 	elif args.mode == 'led':
 		from classes.led import *
-		from run_led import *
+		from run_led import led_Runner
+
 		# initialize equipment for led strips
 		pixels = led_equip(strips=args.strips,strip_leds=args.strip_leds)
 		led_strips = led_fan(rot_image=image, disp_equip=pixels)
+		Runner = led_Runner(w = 1000,t =0.03)
 
 	# Run Pattern
 	try:
 		print("Press Ctrl-c to quit")
-		Run(led_strips)
+		Runner.Run(led_strips)
 	# End when pressing Ctrl-c
 	except KeyboardInterrupt:
-		End(led_strips)
+		Runner.End(led_strips)
