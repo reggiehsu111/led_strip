@@ -7,6 +7,16 @@ Download zip file or git clone this repository with the following command
 git clone https://github.com/reggiehsu111/led_strip.git
 ```
 
+### Hardware requirements
+  - raspberry pi 3
+  - ws281x led strips
+  #### Step 1
+    Concatenate the led strips' digital inputs and stablize the strips into a fan shape. 
+  #### Step 2
+    Place it on a motor or a wheel, and place an infrared emitter on one of the fan blades. 
+  #### Step 3
+    Place an infrared sensor near the fan, so that the sensor can detect the emitter.
+
 ### Package requirements
 The emulation.py and transform_img.py files are intended to run on PCs, it is not required to install opencv on the Raspberry Pi
 
