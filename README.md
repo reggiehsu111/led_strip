@@ -11,18 +11,19 @@ git clone https://github.com/reggiehsu111/led_strip.git
   - raspberry pi 3
   - ws281x led strips
   #### Step 1
-    Concatenate the led strips' digital inputs and stablize the strips into a fan shape. 
+   Concatenate the led strips' digital inputs and stablize the strips into a fan shape. 
   #### Step 2
-    Place it on a motor or a wheel, and place an infrared emitter on one of the fan blades. 
+   Place it on a motor or a wheel, and place an infrared emitter on one of the fan blades. 
   #### Step 3
-    Place an infrared sensor near the fan, so that the sensor can detect the emitter.
+   Place an infrared sensor near the fan, so that the sensor can detect the emitter.
 
 ### Package requirements
-The emulation.py and transform_img.py files are intended to run on PCs, it is not required to install opencv on the Raspberry Pi
+The ```dev``` mode is intended to run on PCs, which requires ```opencv``` preinstalled. 
+The ```led``` mode is intended to run on Raspberry Pis, which requires ```board``` and ```Adafruit CircuitPython NeoPixel``` preinstalled. It is not required to install opencv on the Raspberry Pi.
 
 #### Package requirements for Raspberry Pi
   - rpi_ws281x
-  - Adafruit CircuitPython NeoPixel:
+  - Adafruit CircuitPython NeoPixel
   - Pillow
   - board
   - numpy
@@ -101,6 +102,7 @@ The following files are specific for
   ```
 
 
-
+## Current Issues
+  - Image transformation can only be run on PC. Need a Raspberry Pi version of the ```cv2.linearPolar``` function using only ```PIL``` and ```numpy``` packages
 
 
