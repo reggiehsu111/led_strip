@@ -5,8 +5,7 @@ from PIL import Image
 from utils import *
 
 
-input_image_path = 'transform_1.jpg' 
-image = load_image(input_image_path)
+input_image_path = 'transform_img.jpg' 
 
 
 
@@ -18,10 +17,13 @@ if __name__ == '__main__':
 					  help='Runtime Mode ( \'dev\' for emulation and \'led\' for led strip)')
 	args.add_argument('-s','--strips', default=5, type=int,
 					  help='Number of strips')
-	args.add_argument('-sl','--strip_leds', default=12, type=int,
-					  help='Number of leds on a strip')
+	args.add_argument('-sl','--strip_leds', default=12, type=int, help='Number of leds on a strip')
+	
+	args.add_argument('-i','--image', default=input_image_path, type=str, help='transformed image to display')
 	args = args.parse_args()
 
+	
+	image = load_image(args.image)
 	# initialize equipment for dev mode
 	if args.mode == 'dev':
 		from classes.emulate import *

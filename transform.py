@@ -1,3 +1,4 @@
+import argparse
 import cv2
 import numpy as np
 from classes.emulate import *
@@ -28,7 +29,14 @@ def cart2polar(image_path, output_path):
 
 if __name__ == '__main__':
 	from run_emulate import *
-	original_img, polar_image = cart2polar('1.jpg', 'transform_1.jpg')
+	
+	# Arguments
+	args = argparse.ArgumentParser(description="Image input and output")
+	args.add_argument('-i','--input', default='1.jpg', type=str, help='Input image path to transformed')
+	args.add_argument('-o','--output', default='transform_1.jpg', type=str, help='Transformed image path to output')
+	args = args.parse_args()
+
+	original_img, polar_image = cart2polar(args.input, args.output)
 	print("type of polar_image: ", type(polar_image))
 	radius = np.sqrt(((original_img.shape[0]/2.0)**2.0)+((original_img.shape[1]/2.0)**2.0))
 
