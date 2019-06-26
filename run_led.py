@@ -1,8 +1,11 @@
+# Run time script for led mode
 import time
 from classes.key_detection import key_detector
 from classes.infrared_listener import infrared_listener
 
-
+# Class containing Run and End methods to run in led mode
+# Containing an infrared_listener attribute to detect fan pass events
+# Containing an key_detector attribute to detect key stroke events
 class led_Runner():
 	
 	def __init__(self,w,t,w_offset):
@@ -14,15 +17,6 @@ class led_Runner():
 
 	# Running Pattern
 	def Run(self,led_strip):
-		# led_strip.pixels.fill((255, 0, 0))
-		# led_strip.pixels.show()
-		# time.sleep(1)
-		# led_strip.pixels.fill((0, 255, 0))
-		# led_strip.pixels.show()
-		# time.sleep(1)
-		# led_strip.pixels.fill((0, 0, 255))
-		# led_strip.pixels.show()
-		# time.sleep(1)
 		self.l_d .start()
 		self.k_d.start()
 

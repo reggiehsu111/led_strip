@@ -1,3 +1,5 @@
+# Script to transform image to polar coordinate
+# Only run from PCs
 import argparse
 import cv2
 import numpy as np

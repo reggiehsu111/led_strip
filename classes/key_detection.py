@@ -1,5 +1,5 @@
 from pynput.keyboard import Key, Listener
-
+# class for detecting key strokes
 class  key_detector():
 
 	def __init__(self,w_offset,t):
