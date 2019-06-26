@@ -4,10 +4,12 @@ class  key_detector():
 
 	def __init__(self,w,t):
 		self.w = w
+		self._store_w = w
 		self.t = t
 		self.w_delta = 0.2
 		self.t_delta = 0.001
 		self.key_listener= Listener(on_press=self.on_press)
+		self.calibrate = True
 
 	def on_press(self,key):
 		if key == Key.up:
@@ -23,11 +25,11 @@ class  key_detector():
 			self.t -= self.t_delta
 			print("\nt: ", self.t )
 		elif key == Key.tab:
-			self._store_w = self.w
-			print("store w")
+			self.w = 360//self.t
+			print("set w")
 		elif key == Key.shift:
-			self.w = self._store_w
-			print("recall")
+			self.calibrate = not self.calibrate
+			print("toggle calibrate")
 
 	def start(self):
 		self.key_listener.start()
