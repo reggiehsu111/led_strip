@@ -22,6 +22,12 @@ class  key_detector():
 		elif key == Key.left:
 			self.t -= self.t_delta
 			print("\nt: ", self.t )
+		elif key == Key.tab:
+			self._store_w = self.w
+			print("store w")
+		elif key == Key.shift:
+			self.w = self._store_w
+			print("recall")
 
 	def start(self):
 		self.key_listener.start()
