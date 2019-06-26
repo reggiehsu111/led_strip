@@ -5,7 +5,7 @@ from PIL import Image
 from utils import *
 
 
-input_image_path = 'Transform_A.jpg' 
+input_image_path = 'transform_1.jpg' 
 image = load_image(input_image_path)
 
 
