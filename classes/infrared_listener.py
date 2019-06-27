@@ -23,11 +23,10 @@ class infrared_listener():
 		print("waiting for event")
 		try:
 			while True:
-				self.led_strip.display_led(self.w)
-			# e.wait waits for event to set
-			# The following code will run after event is set by the main process
-			event_is_set = e.wait()
-			print("event set: ",event_is_set)
+				# e.wait waits for event to set
+				# The following code will run after event is set by the main process
+				event_is_set = e.wait()
+				print("event set: ",event_is_set)
 		except KeyboardInterrupt:
 			return
 
