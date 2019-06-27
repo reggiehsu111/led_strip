@@ -21,11 +21,13 @@ class led_Runner():
 		self.l_d.start(led_strip)
 		
 
-		while True:
+		while True:g
 			start = time.time()	
 		#	led_strip.pixels.fill((255,255,255))
 		#	led_strip.pixels.show()
-			led_strip.display_led(self.l_d.w + self.k_d.w_offset ,self.k_d.t)
+		#	led_strip.display_led(self.l_d.w + self.k_d.w_offset ,self.k_d.t)
+			self.l_d.t = self.k_d.t
+			self.l_d.led_strip.pixels.show()
 		#	time.sleep(self.k_d.interval)
 
 			if self.k_d.calibrate:
