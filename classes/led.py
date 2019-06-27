@@ -31,13 +31,12 @@ class led_fan(Parent_fan):
 		# select the rows to be displayed and reshape it to (60,3) 2d array
 		selected_rows = self.resize_image[strip_index]
 		output_pix = selected_rows.reshape((selected_rows.shape[0]*selected_rows.shape[1],3))
-		self.display_pix(output_pix)
+		return output_pix
 
 	# display pixels given pixel array
 	def display_pix(self,output_pix):
-		for x in range(output_pix.shape[0]):
+		for x in range(len(output_pix)):
 			self.pixels[x] = output_pix[x]
-
 
 # led mode, inherit from Parent_equip and neopixel
 class led_equip(Parent_equip,neopixel.NeoPixel):

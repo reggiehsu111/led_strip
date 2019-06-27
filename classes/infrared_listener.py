@@ -1,4 +1,4 @@
-from  multiprocessing import Process, Event
+from  multiprocessing import Process, Event, Manager
 import time
 import RPi.GPIO as GPIO
 import time
@@ -6,32 +6,34 @@ import time
 class infrared_listener():
 	def __init__(self,w,t):
 		''' parameters '''
-		self.w = w
-		self.pass_event = Event()
-		self.window_len = 5.0
-		self.PIN_list   = [ 17 ]
-		self.PIN_window = [ 0 ] * len( self.PIN_list ) 
-		self.threshold  = 0.7
-		self.p1 = Process(name="fan_pass_listener", target=self.wait_for_fan_pass,args=(self.pass_event,))
-		self.p2 = Process(name="fan_pass_reader", target = self.main_process,args=(self.pass_event,))
+		self.common_manager = Manager()
+		self.w = self.common_manager.Value('d',w)
+		self.t = self.common_manager.Value('d',t)
+		self.outputpix = self.common_manager.list()
+		self.outputpix.append([])
+		self.p1 = Process(name="process to update outputpix", target=self.update_outputpix)
+		self.p2 = Process(name="fan_pass_reader", target = self.main_process)
 		# variable to store led_strip object after process starts
 		self.led_strip = None
 	
 	# call when a fan pass event is raised		
-	def wait_for_fan_pass(self,e):
+	def update_outputpix(self):
 		
-		print("waiting for event")
 		try:
 			while True:
-				# e.wait waits for event to set
-				# The following code will run after event is set by the main process
-				event_is_set = e.wait()
-				print("event set: ",event_is_set)
+				time.sleep(self.t.value)
+				self.outputpix[0] = self.led_strip.display_led(self.w.value,self.t.value)
 		except KeyboardInterrupt:
 			return
 
-	def main_process(self,e):
-		
+	def main_process(self):
+		print("In main process")
+		# initialize attributes for detecting fan pass
+		self.window_len = 5.0
+		self.PIN_list   = [ 17 ]
+		self.PIN_window = [ 0 ] * len( self.PIN_list ) 
+		self.threshold  = 0.7
+
 		GPIO.setmode(GPIO.BCM)
 		for index in range(len(self.PIN_list)):
 			GPIO.setup(self.PIN_list[index], GPIO.IN)
@@ -48,11 +50,8 @@ class infrared_listener():
 						elif start != -1:
 							end = time.time()
 							print( "w: ", 360 / ( end - start ) )
-							self.w = 360 / (end-start)
+							self.w.value = 360 / (end-start)
 							start = end
-							# set the event for the other process to detect 
-							e.set()
-							e.clear()
 						time.sleep(0.02)
 					else:
 						pass
