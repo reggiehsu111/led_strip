@@ -22,11 +22,11 @@ class  key_detector():
 				self.interval -= self.interval_delta
 			print("\ninterval: ", self.interval)
 		elif key == Key.right:
-			self.w_offset += self.w_offset_delta
-			print("\nw_offset: ", self.w_offset )
+			self.t += self.t_delta
+			print("\nt: ", self.t )
 		elif key == Key.left:
-			self.w_offset -= self.w_offset_delta
-			print("\nw_offset: ", self.w_offset )
+			self.t -= self.t_delta
+			print("\nt: ", self.t )
 		elif key == Key.shift:
 			self.calibrate = not self.calibrate
 			print("toggle calibrate")

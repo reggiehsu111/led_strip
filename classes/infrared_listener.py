@@ -20,10 +20,9 @@ class infrared_listener():
 		print("waiting for event")
 		try:
 			event_is_set = e.wait()
+			print("event set: ",event_is_set)
 		except KeyboardInterrupt:
 			return
-		print("event set: ",event_is_set)
-		e.clear()
 
 	def main_process(self,e):
 		
@@ -38,7 +37,6 @@ class infrared_listener():
 				for PIN_idx in range( len( self.PIN_list ) ):
 					if GPIO.input( self.PIN_list[ PIN_idx ] ) ^ 1:
 						#print(1)
-						e.set()
 						if start == -1 and end == -1:
 							start = time.time()
 						elif start != -1:
@@ -46,6 +44,8 @@ class infrared_listener():
 							print( "w: ", 360 / ( end - start ) )
 							self.w = 360 / (end-start)
 							start = end
+							e.set()
+							e.clear()
 						time.sleep(0.02)
 					else:
 						pass
