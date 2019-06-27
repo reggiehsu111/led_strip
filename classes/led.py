@@ -11,7 +11,7 @@ class led_fan(Parent_fan):
 
 	def __init__(self,rot_image=None,angle=0,disp_equip=None,strips=5,strip_leds=12):
 		super().__init__(rot_image=rot_image,angle=angle,disp_equip=disp_equip,strips=strips,strip_leds=strip_leds)
-		self.rot_image = self.rot_image.resize((2*self.strip_leds,2*self.strip_leds),resample=Image.LANCZOS)
+		self.rot_image = self.rot_image.resize((4*self.strip_leds,4*self.strip_leds),resample=Image.LANCZOS)
 		self.resize_image = self.rot_image.resize((self.strip_leds,self.image_height), resample=Image.LANCZOS)
 		self.resize_image = np.array(self.resize_image)
 
