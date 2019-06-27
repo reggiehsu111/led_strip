@@ -39,22 +39,3 @@ if __name__ == '__main__':
 	args = args.parse_args()
 
 	original_img, polar_image = cart2polar('images/'+args.input, 'images/'+args.output)
-	print("type of polar_image: ", type(polar_image))
-	radius = np.sqrt(((original_img.shape[0]/2.0)**2.0)+((original_img.shape[1]/2.0)**2.0))
-
-	# Transform back to cartisian
-	cartisian_image = cv2.linearPolar(polar_image, (original_img.shape[1]/2, original_img.shape[0]/2),radius, cv2.WARP_INVERSE_MAP)
-
-	# Transform datatype as uint8
-	polar_image = polar_image.astype(np.uint8)
-	cartisian_image = cartisian_image.astype(np.uint8)
-
-	pixels = emulate_equip()
-	polar_image = Image.fromarray(polar_image)
-	Fan = emulate_fan(1000000,0.0001,width=40,rot_image = polar_image,disp_equip=pixels)
-	Runner = emulate_Runner()
-	try:
-		Runner.Run(Fan)
-
-	except KeyboardInterrupt:
-		Runner.End(Fan)
