@@ -39,6 +39,9 @@ class  key_detector():
 			if self.interval > 0:
 				self.interval -= self.interval_delta
 			print("\n interval: ",self.interval)
+		elif key == Key.space:
+			self.t = 0.02
+			print("\nt: ", self.t)
 
 	def start(self):
 		self.key_listener.start()
