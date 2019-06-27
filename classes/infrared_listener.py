@@ -14,11 +14,18 @@ class infrared_listener():
 		self.threshold  = 0.7
 		self.p1 = Process(name="fan_pass_listener", target=self.wait_for_fan_pass,args=(self.pass_event,))
 		self.p2 = Process(name="fan_pass_reader", target = self.main_process,args=(self.pass_event,))
-		
+		# variable to store led_strip object after process starts
+		self.led_strip = None
+	
+	# call when a fan pass event is raised		
 	def wait_for_fan_pass(self,e):
 		
 		print("waiting for event")
 		try:
+			while True:
+				self.led_strip.display_led(self.w)
+			# e.wait waits for event to set
+			# The following code will run after event is set by the main process
 			event_is_set = e.wait()
 			print("event set: ",event_is_set)
 		except KeyboardInterrupt:
@@ -44,6 +51,7 @@ class infrared_listener():
 							print( "w: ", 360 / ( end - start ) )
 							self.w = 360 / (end-start)
 							start = end
+							# set the event for the other process to detect 
 							e.set()
 							e.clear()
 						time.sleep(0.02)
@@ -53,7 +61,8 @@ class infrared_listener():
 			return
 
 	
-	def start(self):
+	def start(self,led_strip):
+		self.led_strip = led_strip
 		self.p1.start()
 		self.p2.start()
 		print("Infrared listener start")

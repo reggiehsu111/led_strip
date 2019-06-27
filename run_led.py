@@ -17,7 +17,7 @@ class led_Runner():
 
 	# Running Pattern
 	def Run(self,led_strip):
-		self.l_d .start()
+		self.l_d.start(led_strip)
 		self.k_d.start()
 
 		while True:
