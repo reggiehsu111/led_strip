@@ -26,6 +26,7 @@ class led_Runner():
 		#	led_strip.pixels.fill((255,255,255))
 		#	led_strip.pixels.show()
 			led_strip.display_led(self.l_d.w + self.k_d.w_offset ,self.k_d.t)
+			led_strip.pixels.show()
 		#	time.sleep(self.k_d.interval)
 
 			if self.k_d.calibrate:
