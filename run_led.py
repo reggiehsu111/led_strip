@@ -13,22 +13,29 @@ class led_Runner():
 		self.w = w
 		self.t = t
 		self.w_offset = w_offset
-	#	self.l_d = infrared_listener(self.w, self.t)
+		# Uncomment this for led fan pass detection mode with infrared detector
+		self.l_d = infrared_listener(self.w, self.t)
+
 		self.k_d = key_detector(self.w, self.t)
 
 	# Running Pattern
 	def Run(self,led_strip):
 		self.k_d.start()
-	#	self.l_d.start(led_strip)
+
+		# Uncomment this for led fan pass detection mode with infrared detector
+		self.l_d.start(led_strip)
 		
 
 		while True:
 			start = time.time()	
-		#	self.l_d.t.value = self.k_d.t
-		#	outputpix = self.l_d.outputpix[0]
 
-			outputpix = led_strip.display_led(self.k_d.w, self.k_d.t)
-			outputpix = outputpix.tolist()
+			# Comment this for led fan pass detection mode with infrared detector
+		#	outputpix = led_strip.display_led(self.k_d.w, self.k_d.t)
+			
+			# Uncomment this for led fan pass detection mode with infrared detector
+			self.l_d.t.value = self.k_d.t
+			outputpix = self.l_d.outputpix[0]
+
 			led_strip.display_pix(outputpix)
 			time.sleep(self.k_d.interval)
 			led_strip.pixels.show()
@@ -47,5 +54,7 @@ class led_Runner():
 	def End(self,led_strip):
 		led_strip.pixels.fill((0,0,0))
 		led_strip.pixels.show()
-	#	self.l_d.stop()
+		
+		# Uncomment for self adjusting mode with key inputs
+		self.l_d.stop()
 		self.k_d.stop()
